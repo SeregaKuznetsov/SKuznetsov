@@ -1,28 +1,47 @@
+import java.util.Scanner;
+
 public class Main {
-
     public static void main(String[] args) {
+        Menu.menu[0] = "Roast beef";
+        Menu.menu[1] = "Burger";
+        Menu.menu[2] = "Cheescake";
+        Menu.menu[3] = "Spagetti";
+        Menu.menu[4] = "Beer";
 
-        LinkedNodes<Boolean> list = new LinkedNodes<>();
-        CycleDetermination cycleDetermination = new CycleDetermination();
+        System.out.println("Welcome in own cafe!");
+        System.out.println("What would you want to eat?");
+        Menu.showMenu();
+        try {
+            takeOrder();
+        }catch (UserInputException e) {
 
-        list.init();
+        }
 
-        list.addLastNode(true);
-        list.addLastNode(true);
-        list.addLastNode(true);
-        list.addLastNode(true);
-        list.addLastNode(true);
+        try {
+            UserFactory.createUser();
+        } catch(UserInputException e) {
+            System.err.println("Ошибка пользовательского ввода: "
+                    + e.getMessage());
+            e.printStackTrace();
+        }
+    }
 
-        boolean hasCycle = cycleDetermination.hasCycle(list);
+    private static String takeOrder(Scanner sc) {
+            throws UserInputException {
 
-        list.addLastNode(list.getStartNode());
+            StringBuilder order = new StringBuilder();
+            int choose = 1;
+            System.out.println("Press 0, if you ready");
+            while (choose != 0) {
+                choose = sc.nextInt();
+                if (choose > Menu.menu.length + 1 || choose < 0) {
+                    throw new UserInputException("Не правильный ввод номера блюда");
+                }
+                order.append(choose);
 
-        boolean hasCycleAfterAdding = cycleDetermination.hasCycle(list);
-
-        System.out.println("Number of nodes - " + list.getNumberOfNodes());
-        list.removeLastNode();
-        System.out.println("Number of nodes after remove - " + list.getNumberOfNodes());
-        System.out.println("Before create cycle - " + hasCycle);
-        System.out.println("After create cycle - " + hasCycleAfterAdding);
+            }
+            String completedOrder = order.toString();
+            return completedOrder;
+        }
     }
 }
