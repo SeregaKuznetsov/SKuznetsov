@@ -1,14 +1,26 @@
-package ru.kpfu.itis.group11506.semestrovka;
-
 public class Figure {
 
-    public String getIcon() {
-        return icon;
+    protected static String numberTurn = "0";
+    protected static String chessStartPoint;
+    protected static String chessEndPoint;
+    protected static int startI;
+    protected static int startJ;
+    protected static int endI;
+    protected static int endJ;
+    protected static int size;
+
+    public Figure(int startI, int startJ, int endI, int endJ, int size) {
+        this.startI = startI; this.startJ = startJ;
+        this.endI = endI; this.endJ = endJ;
+        this.size = size;
+        chessStartPoint = (char)(startJ + 97) + Integer.toString(startI);
+        chessEndPoint = (char)(endJ + 97) + Integer.toString(endI);
     }
 
-    public String getPath(String[][] table, String initalPoint, String endPoint) {
-        return "path";
+    public String getPath(String[][] board) {
+        return null;
     }
 
-    private String icon = "F";
+    public void getEnablePoint(String[][] table , String path) {
+    }
 }
