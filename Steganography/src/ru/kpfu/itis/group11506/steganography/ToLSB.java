@@ -9,7 +9,8 @@ public class ToLSB {
 
         System.out.println("txt.length" + txt.length);
         for (int i = 0; i < txt.length; i++) {
-            if (((imageInByte[i+54] + bin2dec(txt[i]) < 0) || (imageInByte[i+54]> 0 && imageInByte[i+54] + bin2dec(txt[i]) < 128))) {
+            if ((imageInByte[i+54] < 0 && imageInByte[i+54] + bin2dec(txt[i]) < 0) || (imageInByte[i+54] > 0 && imageInByte[i+54] + bin2dec(txt[i]) < 128)) {
+                System.out.println(imageInByte[i+54] + bin2dec(txt[i]));
                 System.out.print("-> ");
                 imageInByte[i+54] = (byte) (imageInByte[i+54] + bin2dec(txt[i]));
             }

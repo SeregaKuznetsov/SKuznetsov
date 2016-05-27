@@ -22,7 +22,7 @@ public class Main {
 
         FromLSB fromLSB = new FromLSB();
         Container container1 = new Container(new File("C:\\\\Projects\\\\pic2.bmp"));
-        fromLSB.FromLSB(container1);
+        System.out.println(fromLSB.fromLSB(container1));
     }
 }
 
