@@ -2,27 +2,22 @@ package ru.kpfu.itis.group11506.steganography;
 
 public class ToLSB {
 
-    public int [][][] LSB(Container container, Key key) {
+    public byte [] LSB(Container container, Key key) {
         checkAvailableSpace(container.getAvailableSpace(), key.getSizeOfMessage());
         String [] txt = getCoupOfByte(key.getBinaryText());
-        int [][][] pixels = container.getIntPixelArray();
+        byte [] imageInByte = container.getBytePixelArray();
 
+        System.out.println("txt.length" + txt.length);
         for (int i = 0; i < txt.length; i++) {
-            pixels[(i / 10) % 10][i % 10][i / 100] =
-                    pixels[(i / 10) % 10][i % 10][i / 100] +
-                            bin2dec(txt[i]);
-        }
-
-        /*for (int z = 0; z < 3; z++) {
-            System.out.println();
-            for (int i = 0; i < pixels.length; i++) {
-                for (int j = 0; j < pixels[i].length; j++) {
-                    System.out.print(pixels[i][j][z] + " ");
-                }
-                System.out.println();
+            if (((imageInByte[i+54] + bin2dec(txt[i]) < 0) || (imageInByte[i+54]> 0 && imageInByte[i+54] + bin2dec(txt[i]) < 128))) {
+                System.out.print("-> ");
+                imageInByte[i+54] = (byte) (imageInByte[i+54] + bin2dec(txt[i]));
             }
-        }*/
-        return pixels;
+            System.out.println((i+54) + " - " + imageInByte[i+54]);
+        }
+        System.out.println("length - " + imageInByte.length);
+
+        return imageInByte;
     }
 
 
